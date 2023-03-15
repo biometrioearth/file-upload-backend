@@ -1,0 +1,13 @@
+{
+    "name": "testdb",
+    "version": "0.0.1",
+    "scripts": {
+      "start": "bash ./scripts/up.sh",
+      "stop": "bash ./scripts/down.sh",
+      "restart": "bash ./scripts/restart.sh",
+      "logs": "bash ./scripts/logs.sh"
+    },
+    "repository": "git@github.com:biometrioearth/file_upload_backend.git",
+    "author": "jdonlucas <jaime.donlucas@biometrio.earth>",
+    "license": "MIT"
+}
