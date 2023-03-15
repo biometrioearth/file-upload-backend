@@ -86,7 +86,6 @@ def resolve_with_pagination(Model, info, search, filters, page_size, page):
     # Apply filters if specified
     if filters:
         filter_criteria = build_filter_criteria(filters)
-        print(filter_criteria)
         queryset = queryset.filter(filter_criteria)
 
     # Apply pagination to the queryset
