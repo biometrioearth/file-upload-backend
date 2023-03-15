@@ -121,4 +121,4 @@ for example, a mutation to upload a file would look like:
 
       0: file_to_upload.png
 
-you can check (this link)[https://davidkg.medium.com/uploading-images-using-django-graphene-django-and-graphene-file-upload-9f2e9bfc949d] for more info
+you can check [this link](https://davidkg.medium.com/uploading-images-using-django-graphene-django-and-graphene-file-upload-9f2e9bfc949d) for more info
