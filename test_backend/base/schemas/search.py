@@ -1,18 +1,50 @@
 import graphene
 from typing import Optional
 from django.db.models import Q
+from datetime import datetime as dt
+
+class date:
+
+    def __call__(self, date_str):
+        try:
+            date_obj = dt.strptime(date_str, '%d/%m/%Y').date()
+            return date_obj.strftime("%Y-%m-%d %H:%M:%S.%f%z")
+        except ValueError:
+            raise ValueError('Invalid date format. Date must be in the format DD/MM/YYYY.')
+
+
+class time:
+
+    def __call__(self, time_str):
+        try:
+            time_obj = dt.strptime(time_str, '%H:%M:%S').time()
+            return time_obj.strftime("%Y-%m-%d %H:%M:%S.%f%z")
+        except ValueError:
+            raise ValueError('Invalid time format. Time must be in the format HH:MM:SS.')
+        
+
+class DateTime:
+
+    def __call__(self, datetime_str):
+        try:
+            datetime_obj = dt.strptime(datetime_str, '%d/%m/%Y %H:%M:%S')
+            return datetime_obj.strftime("%Y-%m-%d %H:%M:%S.%f%z")
+        except ValueError:
+            raise ValueError('Invalid datetime format. Datetime must be in the format DD/MM/YYYY HH:MM:SS.')
+
 
 class InputTypeEnum(graphene.Enum):
     """
     Supported input value types
     """
-    Int = "int"
-    Float = "float"
-    String = "string"
-    Boolean = "bool"
-    Date = "date"
-    Time = "time"
-    DateTime = "datetime"
+    Int = int
+    Float = float
+    String = str
+    Boolean = bool
+
+    Date = date()
+    Time = time()
+    DateTime = DateTime()
 
 
 
@@ -83,13 +115,14 @@ def build_filter_criteria(filter_input):
     if filter_input.filters:
         for item in filter_input.filters:
             if filter_input.operator.name == 'AND':
-                q = q & build_filter_criteria(item)
+                q &= build_filter_criteria(item)
             elif filter_input.operator.name == 'OR':
-                q = q | build_filter_criteria(item)
+                q |= build_filter_criteria(item)
     else:
+
         value = None
         if filter_input.value and filter_input.value_type:
-            value = filter_input.value_type.parse_value(filter_input.value)
+            value = filter_input.value_type.value(filter_input.value)
         else:
             value = filter_input.value
 
@@ -100,8 +133,8 @@ def build_filter_criteria(filter_input):
             op = 'isnull' if filter_input.operator.name == 'eq' else 'not_isnull'
             value = True
 
-        if "not_" in filter_input.operator.value:
-            op = op.replace("not_","")
+        if op.startswith('not_'):
+            op = op[4:]
             q = ~Q(**{f"{filter_input.field.name}__{op}": value})
         else:
             q = Q(**{f"{filter_input.field.name}__{op}": value})

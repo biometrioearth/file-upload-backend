@@ -1,6 +1,6 @@
 # Sample backend project
 
-This project serves a backend to manage users and file uploads. It's built using Django (ver 4.1), and GraphQL with Graphene for the API. Its pupose is to serve as an example of the backend we want to build, and the API is as close as the one we have in functionality.
+This project serves a backend to manage users and file uploads. It's built using Django (ver 4.1), and GraphQL with Graphene for the API. Its purpose is to serve as an example of the backend we want to build, and the API is as close as the one we have in functionality.
 
 ## Requirements
 
