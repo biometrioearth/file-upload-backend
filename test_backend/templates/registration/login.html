@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head>
+  <style>
+    {% include 'registration/login.css' %}
+  </style>
+</head>
+<body>
+    <div class="login">
+      <h1>Login</h1>
+      <form method="post" class="mt-5">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-primary mt-3">Enter</button>
+      </form>
+    </div>
+</body>

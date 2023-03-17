@@ -18,6 +18,7 @@ Before anything, you'll need to create an `.env` file. You can use `.env.example
       DEBUG=1
       SECRET_KEY="mysecretkey" # define a different secret key for your project
       DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 0.0.0.0 [::1] * # change to your desired allowed hosts
+      SESSION_EXPIRATION=120 # time in minutes of session expiration
 
       # database access credentials
       # change as needed
@@ -180,7 +181,7 @@ Balam's read  _all_ queries have some common params which are used for filtering
       }
       
 
-   Here we are filtering the results that are an exact match with the value `annotators` in the field `name` of the model Group.
+   Here we are filtering the results that are an exact match with the value `annotators` in the field `name` of the model Group. The valueType argument can be omitted if value is a string.
 
    We can also make a more complex filter using AND/OR operators like so:
 
@@ -226,7 +227,7 @@ Balam's read  _all_ queries have some common params which are used for filtering
          }
       }
 
-   Finally, if the model has a JSON type field, the value of the filter needs to have a certain  syntax in order to work properly. The next example shows how to do it:
+   Finally, if the model has a JSON type field, the value of the filter needs to have a certain syntax in order to work properly. The next example shows how to do it:
 
       {
          allFiles(filters: {

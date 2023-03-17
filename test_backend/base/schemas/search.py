@@ -168,11 +168,19 @@ def build_filter_criteria(model, filter_input):
             elif filter_input.operator.name == "OR":
                 q |= build_filter_criteria(model, item)
     else:
-        value = None
+
+        # validate if filter is on JSONField
+        model_field = model._meta.get_field(filter_input.field.name)
+
+        json_field = None
+        value = filter_input.value
+        if isinstance(model_field, JSONField) and isinstance(value, str):
+            json_field = value.split(":")[0]
+            value = value.split(":")[1]
+
+        # check if valueType was setted, if so, parse value
         if filter_input.value and filter_input.value_type:
-            value = filter_input.value_type.value(filter_input.value)
-        else:
-            value = filter_input.value
+            value = filter_input.value_type.value(value)
 
         # validate match between operator and value
         validate_value_n_operator(value, filter_input.value_type, filter_input.operator)
@@ -186,20 +194,28 @@ def build_filter_criteria(model, filter_input):
             and not filter_input.value_type
             and filter_input.operator.name in exact_ops_null_value
         ):
-            op = "isnull" if filter_input.operator.name == "eq" else "not_isnull"
+            op = (
+                "isnull"
+                if filter_input.operator.name == "eq"
+                else "not_isnull"
+            )
             value = True
 
-        model_field = model._meta.get_field(filter_input.field.name)
-
-        if isinstance(model_field, JSONField) and isinstance(value, str):
-            json_field = value.split(":")[0]
-            json_value = value.split(":")[1]
+        if json_field:
 
             if op.startswith("not_"):
                 op = op[4:]
-                q = ~Q(**{f"{filter_input.field.name}__{json_field}__{op}": json_value})
+                q = ~Q(
+                    **{
+                        f"{filter_input.field.name}__{json_field}__{op}": value
+                    }
+                )
             else:
-                q = Q(**{f"{filter_input.field.name}__{json_field}__{op}": json_value})
+                q = Q(
+                    **{
+                        f"{filter_input.field.name}__{json_field}__{op}": value
+                    }
+                )
         else:
             if op.startswith("not_"):
                 op = op[4:]

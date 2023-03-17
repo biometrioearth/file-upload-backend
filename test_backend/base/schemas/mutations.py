@@ -164,12 +164,12 @@ class BaseMutation(Mutation):
             errors = ErrorType.from_errors(form.errors)
             _set_errors_flag_to_context(info)
 
-            instance = None
+            data = {}
             if 'id' in input:
                 instance = cls.model_class._default_manager.get(pk=input['id'])
+                data = instance.to_dict(fields=cls._meta.fields.keys())
             
-
-            return cls(errors=errors, **instance.to_dict(fields=cls._meta.fields.keys()))
+            return cls(errors=errors, **data)
 
     @classmethod
     def get_form(cls, root, info, **input):
