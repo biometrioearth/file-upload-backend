@@ -139,11 +139,14 @@ def validate_value_n_operator(value, value_type, operator):
 
     elif (type(value) in (float, int)) and operator in num_date_ops:
         return
+    
+    elif value is None and operator in bool_ops:
+        return
 
     value_type = (
-        type(value)
-        if value_type and value_type.name not in date_value_types
-        else value_type.name
+        value_type.name
+        if value_type and value_type.name in date_value_types
+        else type(value)
     )
     msg = "Can't use operator %s with value type %s" % (operator, value_type)
     raise GraphQLError(msg)
