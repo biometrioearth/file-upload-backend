@@ -5,6 +5,7 @@ from test_backend.base.schemas.auth import check_auth
 from test_backend.base.schemas.search import build_filter_criteria
 from django.db.models import Q
 
+
 class PageInfoType(graphene.ObjectType):
     """
     A type for pagination info
@@ -69,7 +70,7 @@ class PaginatedResultType(PaginationType):
         self.items = items
 
 
-def resolve_with_pagination(Model, info, search, filters, page_size, page):
+def resolve_with_pagination(model, info, search, filters, page_size, page):
     """
     A generic resolver function that applies pagination to a queryset and returns a paginated response.
     """
@@ -77,15 +78,15 @@ def resolve_with_pagination(Model, info, search, filters, page_size, page):
     check_auth(info)
 
     # Get the queryset for the model
-    queryset = Model.objects.all()
+    queryset = model.objects.all()
 
     # Apply search if specified
     if search:
         queryset = queryset.filter(search)
-    
+
     # Apply filters if specified
     if filters:
-        filter_criteria = build_filter_criteria(filters)
+        filter_criteria = build_filter_criteria(model, filters)
         queryset = queryset.filter(filter_criteria)
 
     # Apply pagination to the queryset
