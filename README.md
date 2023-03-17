@@ -59,14 +59,19 @@ But if you don't want to use yarn, that's ok! You can always use the docker-comp
 
 To build and start the containers you can use `yarn start` command. Once build and up, you can access to the default endpoints in this routes:
 
- - graphql: 
-    * _graphql endpoint, it also serves the graphiql interface_
-    * http://localhost:<TEST_APP_PORT>/graphql/
- - admin:
-    * _default django admin site_
-    * http://localhost:<TEST_APP_PORT>/admin/
- - postgres: 
-    * _is exposed on the port you specified with DEV_EXPOSE_DB_PORT in you `.env` file_
+- graphql: 
+   * _graphql endpoint_
+   * http://localhost:<BALAM_APP_PORT>/graphql/
+
+- graphiql:
+   * _graphiql interface for testing queries and mutations_
+   * http://localhost:<BALAM_APP_PORT>
+
+- admin:
+   * _default django admin site_
+   * http://localhost:<BALAM_APP_PORT>/admin/
+- postgres: 
+   * _is exposed on the port you specified with DEV_EXPOSE_DB_PORT in you `.env` file_
    
 ## How to use the API
 

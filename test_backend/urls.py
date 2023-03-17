@@ -20,9 +20,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from graphene_file_upload.django import FileUploadGraphQLView
+from test_backend.views import PrivateGraphQLView
 
 urlpatterns = [
+    path("", PrivateGraphQLView.as_view(graphiql=True)),
     path("admin/", admin.site.urls),
     path("accounts/",include("django.contrib.auth.urls")),
-    path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True))),
+    path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=False))),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

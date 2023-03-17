@@ -66,8 +66,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-
-    "test_backend.middleware.AuthRequiredMiddleware",
 ]
 
 ROOT_URLCONF = "test_backend.urls"
@@ -155,6 +153,12 @@ MEDIA_URL = "/uploaded/"
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+
+
+# Additional directories which hold static files
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_ROOT, "static"),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
