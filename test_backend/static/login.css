@@ -82,12 +82,14 @@ button {
     margin-top: 0.5em;
 }
 
-.login span {
+.login ul {
+    list-style-type: none;
     display: block;
-    margin-top: 1em;
+    margin-top: 0em;
+    margin-bottom: 2em;
     font-size: 14px;
     color: #ff5794;
-    max-width: 20vw;
+    padding: 0;
 }
 
 
@@ -139,7 +141,7 @@ button {
         background: #ff5794;
     }
 
-    .login span {
+    .login ul {
         color: #ff5794;
     }
 
@@ -198,7 +200,7 @@ button {
         color: rgb(99, 102, 128);
     }
 
-    .login span {
+    .login ul {
         color: #d60590;
     }
 }

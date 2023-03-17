@@ -175,8 +175,13 @@ def build_filter_criteria(model, filter_input):
         json_field = None
         value = filter_input.value
         if isinstance(model_field, JSONField) and isinstance(value, str):
-            json_field = value.split(":")[0]
-            value = value.split(":")[1]
+            try:
+                json_field = value.split(":")[0]
+                value = value.split(":")[1]
+            except:
+                raise GraphQLError(
+                    "Value for JSONField must comply the syntax [field]:[value]"
+                )
 
         # check if valueType was setted, if so, parse value
         if filter_input.value and filter_input.value_type:

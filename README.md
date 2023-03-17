@@ -91,7 +91,7 @@ this will return the following response:
       {
          "data": {
             "tokenAuth": {
-                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNjc4ODE1NjA0LCJvcmlnSWF0IjoxNjc4ODE1MzA0fQ.EjBY_CBjvOG570vt1dBUyjFOqd6VGENu43xbZ-AeTMc"
+                  "token": "<token>"
             }
          }
       }
