@@ -31,6 +31,7 @@ def return_graphene_type(field, input, registry=None):
         return Upload()
 
     if not input:
+        field.null = True
         return convert_django_field(field,registry)
 
     else:
