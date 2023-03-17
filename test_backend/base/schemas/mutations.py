@@ -31,8 +31,11 @@ def return_graphene_type(field, input, registry=None):
         return Upload()
 
     if not input:
+        nullable_field = field.null
         field.null = True
-        return convert_django_field(field,registry)
+        output_field = convert_django_field(field, registry)
+        field.null = nullable_field
+        return output_field
 
     else:
         if isinstance(field,ForeignKey) or isinstance(field,OneToOneField):
