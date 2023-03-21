@@ -11,6 +11,7 @@ from test_backend.base.schemas import (
     check_auth,
     PageInfoType,
     FilterTypeInput,
+    SortTypeInput,
 )
 
 
@@ -43,6 +44,8 @@ class PaginatedFileType(graphene.ObjectType):
 class Query(graphene.ObjectType):
     # Set the model attribute on the FilterTypeInput class
     FileFilterTypeInput = FilterTypeInput.input_type(File)
+    # Set attribute for SortTypeInput class
+    FileSortTypeInput = SortTypeInput.input_type(File)
 
     file = graphene.Field(
         FileType,
@@ -54,6 +57,7 @@ class Query(graphene.ObjectType):
         PaginatedFileType,
         search=graphene.String(),
         filters=graphene.Argument(FileFilterTypeInput),
+        sort=graphene.List(FileSortTypeInput),
         page_size=graphene.Int(),
         page=graphene.Int(),
     )
@@ -68,7 +72,7 @@ class Query(graphene.ObjectType):
             return File.objects.get(name=name)
 
 
-    def resolve_all_files(self, info, search=None, filters=None, page_size=10, page=1):
+    def resolve_all_files(self, info, search=None, filters=None, sort=None, page_size=10, page=1):
         return resolve_with_pagination(
             File,
             info,
@@ -76,6 +80,7 @@ class Query(graphene.ObjectType):
             if search
             else None,
             filters,
+            sort,
             page_size,
             page,
         )

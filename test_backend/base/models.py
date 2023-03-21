@@ -8,11 +8,11 @@ class TestBaseModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     updated_at = models.DateTimeField(
-        verbose_name="created on", editable=False, auto_now_add=True
+        verbose_name="created on", editable=False, auto_now=True
     )
 
     created_at = models.DateTimeField(
-        verbose_name="modified on", editable=False, auto_now=True
+        verbose_name="modified on", editable=False, auto_now_add=True
     )
 
     class Meta:

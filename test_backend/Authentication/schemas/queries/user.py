@@ -8,6 +8,7 @@ from test_backend.base.schemas import (
     check_auth,
     PageInfoType,
     FilterTypeInput,
+    SortTypeInput,
 )
 
 class UserType(DjangoObjectType):
@@ -33,6 +34,8 @@ class PaginatedUsersType(graphene.ObjectType):
 class Query(graphene.ObjectType):
     # Set the model attribute on the FilterTypeInput class
     UserFilterTypeInput = FilterTypeInput.input_type(User)
+    # Set attribute for SortTypeInput class
+    UserSortTypeInput = SortTypeInput.input_type(User)
 
     user = graphene.Field(
         UserType,
@@ -44,6 +47,7 @@ class Query(graphene.ObjectType):
         PaginatedUsersType,
         search=graphene.String(),
         filters=graphene.Argument(UserFilterTypeInput),
+        sort=graphene.List(UserSortTypeInput),
         page_size=graphene.Int(),
         page=graphene.Int(),
     )
@@ -57,7 +61,7 @@ class Query(graphene.ObjectType):
         if username:
             return User.objects.get(username=username)
 
-    def resolve_all_users(self, info, search=None, filters=None, page_size=10, page=1):
+    def resolve_all_users(self, info, search=None, filters=None, sort=None, page_size=10, page=1):
         return resolve_with_pagination(
             User,
             info,
@@ -65,6 +69,7 @@ class Query(graphene.ObjectType):
             if search
             else None,
             filters,
+            sort,
             page_size,
             page,
         )
