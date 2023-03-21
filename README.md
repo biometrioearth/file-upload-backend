@@ -110,7 +110,7 @@ To upload files, make a multipart/form request to the graphql endpoint, and crea
    - map
    - 0
 
-**operations** (text) is the query mutation, **map** contains a mapping to the file variable, ans **0** is the file to be uploaded.
+**operations** (text) is the query mutation, **map** (text) contains a mapping to the file variable, ans **0** is the file to be uploaded.
 
 for example, a mutation to upload a file would look like:
 
@@ -129,14 +129,40 @@ for example, a mutation to upload a file would look like:
 
 you can check [this link](https://davidkg.medium.com/uploading-images-using-django-graphene-django-and-graphene-file-upload-9f2e9bfc949d) for more info
 
+** **Note**:  keep in mind that for this example, multi file upload is not supported. So, to upload multiple files you must make a single request for each file.
 
-### Using the paginations, search and filter params in read queries
+
+### Using the paginations, sort, search and filter params in read queries
 
 Balam's read  _all_ queries have some common params which are used for filtering and changing the pagination of the items returned.
 
    * Pagination
 
    There are two special params for handling the pagination. One is **page_size** and the other is **page**. As the names suggest, **page_size** change the number of items retreived in each page, the default is 10, but you can increment or decrease that number to git your needs. On the other hand, **page** sets the number of the page we want to retrieve, the default value is 1. So, if this params are not in the query, the default is to return the first 10 items in the first page.
+
+   * Sort
+
+   Using the sort param is very straightforward. With this param, we specify a list of objects, which have the field to sort and the order ( desc or asc ). The following is an example of how to use it:
+
+      
+      allFiles(
+         sort: [
+            {
+               field: name,
+               order: DESC
+            }, 
+            {
+               field: created_at,
+               order: ASC
+            }
+         ]
+      ) {
+         items {
+            name
+            file
+         }
+      }
+      
 
    * Search
 
