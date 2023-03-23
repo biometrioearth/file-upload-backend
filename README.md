@@ -61,15 +61,15 @@ To build and start the containers you can use `yarn start` command. Once build a
 
 - graphql: 
    * _graphql endpoint_
-   * http://localhost:<BALAM_APP_PORT>/graphql/
+   * http://localhost:<TEST_APP_PORT>/graphql/
 
 - graphiql:
    * _graphiql interface for testing queries and mutations_
-   * http://localhost:<BALAM_APP_PORT>
+   * http://localhost:<TEST_APP_PORT>
 
 - admin:
    * _default django admin site_
-   * http://localhost:<BALAM_APP_PORT>/admin/
+   * http://localhost:<TEST_APP_PORT>/admin/
 - postgres: 
    * _is exposed on the port you specified with DEV_EXPOSE_DB_PORT in you `.env` file_
    
@@ -134,7 +134,7 @@ you can check [this link](https://davidkg.medium.com/uploading-images-using-djan
 
 ### Using the paginations, sort, search and filter params in read queries
 
-Balam's read  _all_ queries have some common params which are used for filtering and changing the pagination of the items returned.
+The _all_ queries have some common params which are used for filtering and changing the pagination of the items returned.
 
    * Pagination
 
