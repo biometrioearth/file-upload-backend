@@ -34,6 +34,7 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 BIOMETRIO_APPS = (
@@ -41,7 +42,10 @@ BIOMETRIO_APPS = (
     "test_backend.FileManagement",
 )
 
-THIRD_PARTY_APPS = ("graphene_django",)
+THIRD_PARTY_APPS = (
+    "graphene_django",
+    "corsheaders",
+)
 
 INSTALLED_APPS = (
     "django.contrib.admin",
@@ -65,6 +69,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
 ]
 

@@ -2,4 +2,5 @@ Django==4.1.6
 graphene-django==3.0.0
 graphene-file-upload==1.3.0
 django-graphql-jwt==0.3.4
+django-cors-headers==3.14.0
 psycopg2-binary==2.9.1
