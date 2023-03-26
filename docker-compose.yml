@@ -24,6 +24,7 @@ services:
         build:
             context: .
             dockerfile: ./context/Dockerfile.test_backend
+            network: host
         env_file:
           - ./.env
         volumes:
