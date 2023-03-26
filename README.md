@@ -18,6 +18,7 @@ Before anything, you'll need to create an `.env` file. You can use `.env.example
       DEBUG=1
       SECRET_KEY="mysecretkey" # define a different secret key for your project
       DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 0.0.0.0 [::1] * # change to your desired allowed hosts
+      DJANGO_CORS_ALLOWED_ORIGINS=http://localhost http://127.0.0.1 # change to your desired allowed origins
       SESSION_EXPIRATION=120 # time in minutes of session expiration
 
       # database access credentials
