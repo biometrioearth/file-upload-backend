@@ -76,7 +76,7 @@ class Query(graphene.ObjectType):
         return resolve_with_pagination(
             File,
             info,
-            (Q(name__icontains=search) | Q(url__icontains=search))
+            (Q(name__icontains=search))
             if search
             else None,
             filters,
